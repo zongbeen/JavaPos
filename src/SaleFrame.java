@@ -13,7 +13,7 @@ public class SaleFrame extends JFrame {
     private Container c = getContentPane();
 
     SaleFrame() {
-        setTitle("SaleFrame");
+        setTitle("매출관리");
         setBackground(Color.WHITE);
         setSize(500, 300);
         setLocationRelativeTo(null);

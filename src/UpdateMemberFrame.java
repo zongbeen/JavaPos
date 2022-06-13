@@ -1,19 +1,19 @@
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.sql.SQLException;
+import javax.swing.*;
 
-public class UpdateMemberFrame extends JFrame {
+class UpdateMemberFrame extends JFrame {
+
     JLabel nameLabel = new JLabel("  이름  ");
     JLabel phoneLabel = new JLabel("전화번호");
     JLabel idLabel = new JLabel(" 아이디 ");
     JLabel pwLabel = new JLabel("비밀번호");
 
-    JTextField nameTF = new JTextField(StaticMember.name);
-    JTextField phoneTF = new JTextField(StaticMember.phone);
-    JTextField idTF = new JTextField(StaticMember.ID);
-    JTextField pwTF = new JTextField(StaticMember.PW);
+    JTextField nameTf = new JTextField(10);
+    JTextField phoneTf = new JTextField(10);
+    JTextField idTf = new JTextField(10);
+    JPasswordField pwTf = new JPasswordField(10);
 
     JPanel namePanel = new JPanel();
     JPanel phonePanel = new JPanel();
@@ -22,34 +22,39 @@ public class UpdateMemberFrame extends JFrame {
     JPanel mainPanel = new JPanel();
     JPanel buttonPanel = new JPanel();
 
-    JButton backBtn = new JButton("뒤로가기");
-    JButton updateBtn = new JButton("수정완료");
+    JButton changeButton = new JButton("변경");
+    JButton backButton = new JButton("뒤로가기");
 
-    UpdateMemberFrame(){
+    private Container c = getContentPane();
+
+    UpdateMemberFrame(String name, String phone, String id, String pw) {
         int x=50, y=50;
-
-        setTitle("회원수정");
+        setLayout(null);
+        setTitle("직원 수정");
         setBackground(Color.WHITE);
-        setSize(400, 500);
+        setSize(400,500);
         setLocationRelativeTo(null);
 
+        nameTf.setText(name);
+        phoneTf.setText(phone);
+        idTf.setText(id);
+        pwTf.setText(pw);
+        pwTf.setEchoChar('*');
 
         nameLabel.setPreferredSize(new Dimension(50, 30));
         phoneLabel.setPreferredSize(new Dimension(50, 30));
         idLabel.setPreferredSize(new Dimension(50, 30));
         pwLabel.setPreferredSize(new Dimension(50, 30));
 
-        nameTF.setPreferredSize(new Dimension(170, 30));
-        phoneTF.setPreferredSize(new Dimension(170, 30));
-        idTF.setPreferredSize(new Dimension(170, 30));
-        idTF.setEditable(false);
-        idTF.setBackground(Color.LIGHT_GRAY);
-        pwTF.setPreferredSize(new Dimension(170, 30));
+        nameTf.setPreferredSize(new Dimension(170, 30));
+        nameTf.setPreferredSize(new Dimension(170, 30));
+        phoneTf.setPreferredSize(new Dimension(170, 30));
+        idTf.setPreferredSize(new Dimension(170, 30));
+        idTf.setEditable(false);
+        idTf.setBackground(Color.LIGHT_GRAY);
+        pwTf.setPreferredSize(new Dimension(170, 30));
 
-
-        updateBtn.setPreferredSize(new Dimension(135, 30));
-        backBtn.setPreferredSize(new Dimension(135, 30));
-
+        changeButton.setPreferredSize(new Dimension(135, 30));
         setContentPane(mainPanel);
         mainPanel.setLayout(null);
         mainPanel.setBackground(Color.WHITE);
@@ -66,70 +71,72 @@ public class UpdateMemberFrame extends JFrame {
         buttonPanel.setBackground(Color.WHITE);
 
         namePanel.add(nameLabel);
-        namePanel.add(nameTF);
+        namePanel.add(nameTf);
         phonePanel.add(phoneLabel);
-        phonePanel.add(phoneTF);
+        phonePanel.add(phoneTf);
         idPanel.add(idLabel);
-        idPanel.add(idTF);
+        idPanel.add(idTf);
         pwPanel.add(pwLabel);
-        pwPanel.add(pwTF);
-        buttonPanel.add(backBtn);
-        buttonPanel.add(updateBtn);
+        pwPanel.add(pwTf);
+        buttonPanel.add(changeButton);
+        buttonPanel.add(backButton);
 
         mainPanel.add(namePanel);
         mainPanel.add(phonePanel);
         mainPanel.add(idPanel);
         mainPanel.add(pwPanel);
         mainPanel.add(buttonPanel);
+        mainPanel.add(backButton);
         mainPanel.setBackground(Color.WHITE);
 
-
-        updateButtonListener ub = new updateButtonListener();
-        BackButtonListener bb = new BackButtonListener();
-        updateBtn.addActionListener(ub);
-        backBtn.addActionListener(bb);
+        changeButtonListener cb = new changeButtonListener();
+        backButtonListener bb = new backButtonListener();
+        changeButton.addActionListener(cb);
+        backButton.addActionListener(bb);
 
         setVisible(true);
         setResizable(false);
-
     }
 
-    class updateButtonListener implements ActionListener {
+    class changeButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String name = nameTF.getText();
-            String phone = phoneTF.getText();
-            String id = idTF.getText();
-            String pw = pwTF.getText();
+            String name = nameTf.getText();
+            String phone = phoneTf.getText();
+            String id = idTf.getText();
+            String pw = pwTf.getText();
             Database db;
             try {
                 db = new Database();
                 if(name.equals("") || phone.equals("") || id.equals("") || pw.equals("")) {
-                    JOptionPane.showMessageDialog(null,"회원수정 실패", "Error",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"계정 변경 실패", "Error",JOptionPane.ERROR_MESSAGE);
                 }
                 else{
-                    int updateSign =db.updateSign(new String[] {name, phone, pw, id});
-                    if(updateSign == 1){
-                        JOptionPane.showMessageDialog(null,"회원수정 성공", "Success",JOptionPane.INFORMATION_MESSAGE);
+                    int updateMember =db.updateSign(new String[] {name, phone, pw, id});
+                    if(updateMember == 1){
+                        JOptionPane.showMessageDialog(null,"계정 변경 성공", "Success",JOptionPane.INFORMATION_MESSAGE);
                         StaticMember.name = name;
                         StaticMember.phone = phone;
+                        StaticMember.ID = id;
                         StaticMember.PW = pw;
                         dispose();
                     }
                     else {
-                        JOptionPane.showMessageDialog(null, "회원수정 실패", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "계정 변경 오류", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
 
-            } catch (SQLException ex) {
+
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
     }
-    class BackButtonListener implements ActionListener {
+    class  backButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             dispose();
         }
     }
 }
+

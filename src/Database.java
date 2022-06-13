@@ -49,6 +49,22 @@ public class Database {
         StaticMember.ID = id;
     }
 
+    //정적 메뉴
+    public void staticMenu(int categoryID) throws SQLException {
+        String[] staticMenus = {};
+        String sql = "Select * from menu where c_id = '" + categoryID + "';";
+        ResultSet query1 = spendQuery(sql);
+
+        while (query1.next()) {
+            StaticMenu.productId = query1.getString(1);
+            StaticMenu.productName = query1.getString(2);
+            StaticMenu.productPrice = query1.getString(3);
+            StaticMenu.c_id = query1.getString(4);
+        }
+
+        StaticMenu.c_id = String.valueOf(categoryID);
+    }
+
     // 카테고리
     public String[] insertCategory(String categorName) throws SQLException {
         int a = 0;
@@ -103,6 +119,15 @@ public class Database {
     //회원 정보 수정
     public int updateSign(String[] infor) throws SQLException {
         String str = "update user set name = ?,phone = ?, pw = ? where id = ?;";
+
+        int query = spendUpdate(str, infor);
+
+        return query;
+    }
+
+    //메뉴 목록 수정
+    public int updateMenu(String[] infor) throws SQLException {
+        String str = "update menu set productName = ?, productPrice = ? where productId = ?;";
 
         int query = spendUpdate(str, infor);
 
@@ -281,5 +306,33 @@ public class Database {
         int query = spendUpdate(str, new String[]{});
 
         return query;
+    }
+
+    public String[][] allMenu() throws SQLException {
+        ArrayList<String[]> am =new ArrayList<>();
+        String sql = "select * from menu;";
+
+        ResultSet query = spendQuery(sql);
+        while (query.next()) {
+            System.out.println(query.getString(1));
+            am.add(new String[]{query.getString(1),query.getString(2),
+                    query.getString(3),query.getString(4)});
+        }
+
+        return am.toArray(new String [am.size()][]);
+    }
+
+    public String[][] allMember() throws SQLException {
+        ArrayList<String[]> am =new ArrayList<>();
+        String sql = "select * from user;";
+
+        ResultSet query = spendQuery(sql);
+        while (query.next()) {
+            System.out.println(query.getString(1));
+            am.add(new String[]{query.getString(1),query.getString(2),
+                    query.getString(3),query.getString(4)});
+        }
+
+        return am.toArray(new String [am.size()][]);
     }
 }

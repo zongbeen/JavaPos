@@ -51,7 +51,7 @@ public class CancleFrame extends JFrame {
     CancleFrame() {
         int x=130, y=120;
         setLayout(null);
-        setTitle("CancleFrame");
+        setTitle("결제 취소");
         setBackground(Color.WHITE);
         setSize(1000,600);
         setLocationRelativeTo(null);
@@ -99,6 +99,7 @@ public class CancleFrame extends JFrame {
             String month = yueBox.getSelectedItem().toString();
             String day = riBox.getSelectedItem().toString();
             DefaultTableModel m = (DefaultTableModel) tables.getModel();
+            m.setNumRows(0);
 
             Database db;
             try {
@@ -122,27 +123,22 @@ public class CancleFrame extends JFrame {
             String codeNum;
             Database db;
             new PayCancle();
-
             codeNum = (String)tables.getValueAt(tables.getSelectedRow(),0);
-
+            System.out.println(codeNum);
             try {
-                db = new Database();
-                int i = db.deleteSale(codeNum);
-                System.out.println(i);
-                DefaultTableModel m = (DefaultTableModel) tables.getModel();
-                m.removeRow(tables.getSelectedRow());
-                dispose();
+                if(codeNum.equals("1")){
+                    db = new Database();
+                    int i = db.deleteSale(codeNum);
+                    System.out.println(i);
+                    DefaultTableModel m = (DefaultTableModel) tables.getModel();
+                    m.removeRow(tables.getSelectedRow());
+                    dispose();
+                }
+                else
+                    JOptionPane.showMessageDialog(null,"선택된 리스트가 없습니다.", "Error",JOptionPane.ERROR_MESSAGE);
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
     }
-    public static void main(String[] args) {
-        new CancleFrame();
-    }
 }
-
-
-
-
-

@@ -14,7 +14,7 @@ public class LoginFrame extends JFrame {
     JLabel pwLabel = new JLabel("비밀번호");
 
     JTextField id = new JTextField();
-    JTextField pw = new JTextField();
+    JPasswordField pw = new JPasswordField();
 
     JButton LoginBtn = new JButton("로그인");
     JButton JoinBtn = new JButton("회원가입");
@@ -35,6 +35,7 @@ public class LoginFrame extends JFrame {
         id.setPreferredSize(new Dimension(170, 30));
         pw.setPreferredSize(new Dimension(170, 30));
         pw.addKeyListener(new LoginListener());
+        pw.setEchoChar('*');
 
         LoginBtn.setPreferredSize(new Dimension(75, 68));
         JoinBtn.setPreferredSize(new Dimension(135, 30));
@@ -114,7 +115,6 @@ public class LoginFrame extends JFrame {
             try {
                 db = new Database();
                 String check = db.checkLogin(uid, upw);
-                System.out.println(check);
                 if (check.equals("0")) {
                     System.out.println("입력안함");
                     JOptionPane.showMessageDialog(null,"아이디, 비밀번호를 입력하세요", "Error",JOptionPane.ERROR_MESSAGE);

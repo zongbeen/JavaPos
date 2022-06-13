@@ -63,7 +63,7 @@ public class OrderFrame extends JFrame {
     public OrderFrame(FirstFrame fr) {
         this.fr =fr;
         setLayout(null);
-        setTitle("TestFrame");
+        setTitle("주문");
         setBackground(Color.WHITE);
         setSize(1000,1000);
         setLocationRelativeTo(null);
@@ -141,7 +141,7 @@ public class OrderFrame extends JFrame {
         }
         setVisible(true);
 
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < coffeeButton.length; i++) {
             coffeeButton[i].addActionListener(new menuButtonListener());
             drinkButton[i].addActionListener(new menuButtonListener());
             teaButton[i].addActionListener(new menuButtonListener());

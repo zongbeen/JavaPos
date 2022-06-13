@@ -14,7 +14,7 @@ public class JoinFrame extends JFrame {
     JTextField nameTF = new JTextField();
     JTextField phoneTF = new JTextField();
     JTextField idTF = new JTextField();
-    JTextField pwTF = new JTextField();
+    JPasswordField pwTF = new JPasswordField();
 
     JPanel namePanel = new JPanel();
     JPanel phonePanel = new JPanel();
@@ -45,6 +45,7 @@ public class JoinFrame extends JFrame {
         phoneTF.setPreferredSize(new Dimension(170, 30));
         idTF.setPreferredSize(new Dimension(170, 30));
         pwTF.setPreferredSize(new Dimension(170, 30));
+        pwTF.setEchoChar('*');
 
 
         joinBtn.setPreferredSize(new Dimension(135, 30));

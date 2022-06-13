@@ -48,7 +48,7 @@ public class DailySaleFrame extends JFrame {
     DailySaleFrame() {
         int x=130, y=120;
         setLayout(null);
-        setTitle("DailySaleFrame");
+        setTitle("일별 매출 조회");
         setBackground(Color.WHITE);
         setSize(1000,600);
         setLocationRelativeTo(null);
@@ -92,6 +92,7 @@ public class DailySaleFrame extends JFrame {
             String month = yueBox.getSelectedItem().toString();
             String day = riBox.getSelectedItem().toString();
             DefaultTableModel m = (DefaultTableModel) tables.getModel();
+            m.setNumRows(0);
 
             Database db;
             try {

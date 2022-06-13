@@ -1,8 +1,4 @@
-//결제관리프로그램
-//고칠점: 결제취소도 만들기
 import java.awt.*;
-import java.awt.event.ActionEvent;
-        import java.awt.event.ActionListener;
 import javax.swing.JDialog;
         import javax.swing.JFrame;
         import javax.swing.JLabel;

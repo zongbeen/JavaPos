@@ -2,20 +2,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.sql.SQLException;
 
 public class FirstFrame extends JFrame {
     JButton button1 = new JButton("주문");
     JButton button2 = new JButton("매출관리");
-    JButton button3 = new JButton("회원정보수정");
+    JButton button3 = new JButton("관리");
     JPanel butttonPanel = new JPanel();
 
     private Container c = getContentPane();
 
     FirstFrame() {
-        setTitle("FirstFrame");
+        setTitle("JavaPos");
         setBackground(Color.WHITE);
         setSize(500,300);
         setLocationRelativeTo(null);
@@ -45,7 +42,7 @@ public class FirstFrame extends JFrame {
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new UpdateMemberFrame();
+                new ManageFrame();
             }
         });
 

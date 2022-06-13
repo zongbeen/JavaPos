@@ -45,7 +45,7 @@ public class MonthlySaleFrame extends JFrame {
     MonthlySaleFrame() {
         int x=130, y=120;
         setLayout(null);
-        setTitle("MonthlySaleFrame");
+        setTitle("월별 매출 조회");
         setBackground(Color.WHITE);
         setSize(1000,600);
         setLocationRelativeTo(null);
@@ -86,6 +86,7 @@ public class MonthlySaleFrame extends JFrame {
             String year = nianBox.getSelectedItem().toString();
             String month = yueBox.getSelectedItem().toString();
             DefaultTableModel m = (DefaultTableModel) tables.getModel();
+            m.setNumRows(0);
 
             Database db;
             try {
